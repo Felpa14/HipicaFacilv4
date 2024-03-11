@@ -1,0 +1,97 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - HipicaFacilv4</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/HipicaFacilv4.styles.css" asp-append-version="true" />
+    <style>
+        /* Estilos adicionais para a barra lateral */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            width: 250px;
+            background-color: #f8f9fa;
+            padding-top: 60px; /* Espaço para a logo */
+        }
+
+        .sidebar-brand {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 60px; /* Altura da logo */
+            line-height: 60px;
+            text-align: center;
+            background-color: #343a40;
+            color: white;
+        }
+
+        .sidebar-nav {
+            margin-top: 20px;
+        }
+
+            .sidebar-nav a {
+                display: block;
+                padding: 10px 15px;
+                color: #333;
+                text-decoration: none;
+            }
+
+                .sidebar-nav a:hover {
+                    background-color: #dee2e6;
+                }
+
+        /* Estilos para o conteúdo principal */
+        .content {
+            margin-left: 250px;
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <!-- Logo -->
+        <div class="sidebar-brand">
+            <img src="caminho_para_a_logo.png" alt="Logo" style="max-width: 100%; max-height: 100%;">
+        </div>
+
+        <!-- Links da Sidebar -->
+        <div class="sidebar-nav">
+            <a href="#" class="nav-link">Dashboard</a>
+            <a href="#" class="nav-link">Clientes</a>
+            <a href="#" class="nav-link">Cavalos</a>
+            <a href="Estoque" class="nav-link">Estoque</a>
+        </div>
+    </div>
+
+    <!-- Conteúdo Principal -->
+    <div class="content">
+        <header>
+        </header>
+
+        <!-- Conteúdo do site -->
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+
+        <!-- Rodapé -->
+        <footer class="border-top footer text-muted fixed-bottom">
+            <div class="container">
+                &copy; 2024 - HipicaFacilv4 - <a asp-area="" asp-page="/Privacy">Privacy</a>
+            </div>
+        </footer>
+    </div>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

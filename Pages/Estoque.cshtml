@@ -1,0 +1,97 @@
+﻿@page
+@model EstoqueModel
+@{
+    ViewData["Title"] = "Estoque";
+}
+
+<h1>Estoque</h1>
+
+<form method="post">
+    <!-- Formulário para adicionar um novo produto -->
+    <div class="form-group">
+        <label for="nome">Nome do Produto:</label>
+        <input type="text" class="form-control" id="nome" asp-for="NovoProduto.Nome">
+    </div>
+    <div class="form-group">
+        <label for="validade">Validade do Produto:</label>
+        <input type="date" class="form-control" id="validade" asp-for="NovoProduto.Validade">
+    </div>
+    <div class="form-group">
+        <label for="quantidade">Quantidade:</label>
+        <input type="number" class="form-control" id="quantidade" asp-for="NovoProduto.Quantidade">
+    </div>
+    <button type="submit" class="btn btn-primary">Adicionar Produto</button>
+</form>
+
+<table class="table mt-4">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nome</th>
+            <th>Validade</th>
+            <th>Quantidade</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var produto in Model.Produtos)
+        {
+            <tr>
+                <td>@produto.Id</td>
+                <td>@produto.Nome</td>
+                <td>@produto.Validade</td>
+                <td>@produto.Quantidade</td>
+                <td>
+                    <!-- Formulário para excluir um produto -->
+                    <form method="post" asp-page-handler="Delete" asp-route-id="@produto.Id">
+                        <button type="submit" class="btn btn-danger">Excluir</button>
+                    </form>
+                    <!-- Botão para editar um produto -->
+                    <button type="button" class="btn btn-primary" onclick="editarProduto('@produto.Id', '@produto.Nome', '@produto.Validade', '@produto.Quantidade')">Editar</button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<!-- Formulário para editar um produto (inicialmente oculto) -->
+<form method="post" id="formEditar" style="display: none;">
+    <input type="hidden" id="produtoId" name="produtoId" />
+    <div class="form-group">
+        <label for="nomeEdit">Nome do Produto:</label>
+        <input type="text" class="form-control" id="nomeEdit" name="nomeEdit">
+    </div>
+    <div class="form-group">
+        <label for="validadeEdit">Validade do Produto:</label>
+        <input type="date" class="form-control" id="validadeEdit" name="validadeEdit">
+    </div>
+    <div class="form-group">
+        <label for="quantidadeEdit">Quantidade:</label>
+        <input type="number" class="form-control" id="quantidadeEdit" name="quantidadeEdit">
+    </div>
+    <button type="submit" class="btn btn-success">Salvar</button>
+    <button type="button" class="btn btn-secondary" onclick="cancelarEdicao()">Cancelar</button>
+</form>
+
+@section Scripts {
+    <script>
+        // Função para preencher o formulário de edição com os dados do produto selecionado
+        function editarProduto(id, nome, validade, quantidade) {
+            document.getElementById("produtoId").value = id;
+            document.getElementById("nomeEdit").value = nome;
+            document.getElementById("validadeEdit").value = validade;
+            document.getElementById("quantidadeEdit").value = quantidade;
+
+            // Exibir o formulário de edição e ocultar a tabela
+            document.getElementById("formEditar").style.display = "block";
+            document.querySelector("table").style.display = "none";
+        }
+
+        // Função para cancelar a edição e exibir a tabela novamente
+        function cancelarEdicao() {
+            // Ocultar o formulário de edição e exibir a tabela
+            document.getElementById("formEditar").style.display = "none";
+            document.querySelector("table").style.display = "table";
+        }
+    </script>
+}
